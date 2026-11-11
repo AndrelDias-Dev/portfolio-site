@@ -13,6 +13,7 @@ const linksWhatsApp = document.querySelectorAll("[data-whatsapp]");
 const cabecalho = document.querySelector("[data-cabecalho]");
 const menu = document.querySelector(".menu");
 const botaoMenu = document.querySelector(".menu-botao");
+let quadroRolagem = null;
 
 function configurarWhatsApp() {
   const destino = CONFIGURACAO.whatsapp ? `/${CONFIGURACAO.whatsapp}` : "";
@@ -33,6 +34,66 @@ function fecharMenu() {
   botaoMenu.setAttribute("aria-label", "Abrir menu");
   menu.classList.remove("aberto");
   document.body.classList.remove("menu-aberto");
+}
+
+function cancelarRolagem() {
+  if (!quadroRolagem) return;
+  cancelAnimationFrame(quadroRolagem);
+  quadroRolagem = null;
+  document.documentElement.classList.remove("rolagem-controlada");
+}
+
+function rolarAteSecao(secao, ancora) {
+  cancelarRolagem();
+
+  const alturaCabecalho = cabecalho.offsetHeight;
+  const inicio = window.scrollY;
+  const posicaoSecao = secao.id === "inicio"
+    ? 0
+    : secao.getBoundingClientRect().top + inicio - alturaCabecalho - 16;
+  const destino = Math.max(0, posicaoSecao);
+  const distancia = destino - inicio;
+
+  if (movimentoReduzido || Math.abs(distancia) < 2) {
+    window.scrollTo(0, destino);
+    history.pushState(null, "", ancora);
+    return;
+  }
+
+  const duracao = Math.min(1800, Math.max(1050, 900 + Math.abs(distancia) * 0.14));
+  let tempoInicial = null;
+  document.documentElement.classList.add("rolagem-controlada");
+
+  function animar(tempoAtual) {
+    if (tempoInicial === null) tempoInicial = tempoAtual;
+    const progresso = Math.min((tempoAtual - tempoInicial) / duracao, 1);
+    const suavizacao = progresso < 0.5
+      ? 4 * Math.pow(progresso, 3)
+      : 1 - Math.pow(-2 * progresso + 2, 3) / 2;
+    window.scrollTo(0, inicio + distancia * suavizacao);
+
+    if (progresso < 1) {
+      quadroRolagem = requestAnimationFrame(animar);
+      return;
+    }
+
+    quadroRolagem = null;
+    document.documentElement.classList.remove("rolagem-controlada");
+    history.pushState(null, "", ancora);
+  }
+
+  quadroRolagem = requestAnimationFrame(animar);
+}
+
+function navegarParaAncora(evento) {
+  const link = evento.currentTarget;
+  const ancora = link.getAttribute("href");
+  const secao = document.querySelector(ancora);
+  if (!secao) return;
+
+  evento.preventDefault();
+  if (link.closest(".menu")) fecharMenu();
+  requestAnimationFrame(() => rolarAteSecao(secao, ancora));
 }
 
 function iniciarRevelacoes() {
@@ -96,6 +157,10 @@ observarSecoes();
 atualizarRolagem();
 
 botaoMenu.addEventListener("click", controlarMenu);
-menu.querySelectorAll("a").forEach((link) => link.addEventListener("click", fecharMenu));
+document.querySelectorAll('a[href^="#"]:not([href="#"])').forEach((link) => {
+  link.addEventListener("click", navegarParaAncora);
+});
+window.addEventListener("wheel", cancelarRolagem, { passive: true });
+window.addEventListener("touchstart", cancelarRolagem, { passive: true });
 window.addEventListener("scroll", atualizarRolagem, { passive: true });
 document.querySelector("[data-ano]").textContent = new Date().getFullYear();
