@@ -166,11 +166,12 @@ h1 span, h2 span { color: var(--azul); }
 .js .revelar.visivel { opacity: 1; transform: translateY(0); }
 @media (max-width: 1100px) {
   .container { width: min(calc(100% - 32px), var(--container)); }
+  .cabecalho.rolado { background: #05090f; backdrop-filter: none; }
   .cabecalho__cta { display: none; }
   .menu-botao { display: block; position: relative; z-index: 3; order: 3; }
   .menu-botao[aria-expanded="true"] span:first-child { transform: translateY(3.5px) rotate(45deg); }
   .menu-botao[aria-expanded="true"] span:last-child { transform: translateY(-3.5px) rotate(-45deg); }
-  .menu { position: fixed; inset: 0; z-index: 2; padding: 130px 30px 50px; display: flex; flex-direction: column; align-items: flex-start; gap: 22px; background: rgba(5,9,15,.97); transform: translateX(100%); transition: transform var(--normal) var(--easing); }
+  .menu { position: fixed; inset: 0; z-index: 2; width: 100%; min-height: 100vh; height: 100dvh; padding: 130px 30px 50px; display: flex; flex-direction: column; align-items: flex-start; gap: 22px; overflow-y: auto; background: #05090f; transform: translateX(100%); transition: transform var(--normal) var(--easing); }
   .menu.aberto { transform: translateX(0); }
   .menu a { font-size: 32px; font-weight: 750; }
   .hero { height: auto; min-height: 0; max-height: none; padding: 120px 0 0; }
