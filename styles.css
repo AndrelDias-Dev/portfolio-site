@@ -82,9 +82,8 @@ h1 span, h2 span { color: var(--azul); }
 .hero__retrato { position: absolute; z-index: 2; left: 52%; bottom: 0; width: min(100%, 660px); transform: translateX(-50%); filter: drop-shadow(0 28px 48px rgba(0, 0, 0, .45)); }
 .hero__retrato img { width: 100%; max-height: 720px; object-fit: contain; object-position: bottom; }
 
-.cabecalho-secao { display: grid; grid-template-columns: 1.2fr .8fr; gap: 80px; align-items: end; margin-bottom: 58px; }
+.cabecalho-secao { display: block; margin-bottom: 58px; }
 .cabecalho-secao h2, .processo h2, .sobre h2 { font-size: clamp(2.5rem, 5vw, 4.5rem); margin-bottom: 0; }
-.cabecalho-secao > p { max-width: 480px; color: var(--texto-suave); margin: 0 0 5px; }
 .projetos { background: linear-gradient(180deg, rgba(5,9,15,1), rgba(7,15,24,.9)); }
 .vitrine { position: relative; min-height: 520px; overflow: hidden; border-radius: var(--raio); border: 1px solid rgba(65,185,237,.25); background: radial-gradient(circle at var(--spot-x, 70%) var(--spot-y, 50%), rgba(0,183,255,.16), transparent 27%), linear-gradient(135deg, #0b1825, #06101a 65%); box-shadow: 0 30px 100px rgba(0,0,0,.28); display: grid; grid-template-columns: .8fr 1.2fr; align-items: center; }
 .vitrine::before { content: ""; position: absolute; width: 300px; height: 300px; left: -170px; top: -170px; border: 1px solid rgba(0,184,255,.25); border-radius: 50%; box-shadow: 0 0 0 40px rgba(0,184,255,.015), 0 0 0 80px rgba(0,184,255,.012); }
@@ -108,7 +107,6 @@ h1 span, h2 span { color: var(--azul); }
 .servicos__layout { display: grid; grid-template-columns: .82fr 1.18fr; gap: 100px; align-items: start; }
 .servicos__introducao { position: sticky; top: 150px; }
 .servicos__introducao h2 { margin-bottom: 30px; font-size: clamp(2.5rem, 5vw, 4.5rem); }
-.servicos__introducao p { max-width: 450px; margin: 0; color: var(--texto-suave); }
 .servicos__grade { display: grid; grid-template-columns: 1fr; gap: 18px; }
 .servico { min-height: 350px; padding: 38px; display: flex; flex-direction: column; position: relative; overflow: hidden; border: 1px solid var(--linha); border-radius: 20px; background: radial-gradient(circle at var(--spot-x, 50%) var(--spot-y, 50%), rgba(0,184,255,.12), transparent 28%), linear-gradient(145deg, rgba(14,27,40,.75), rgba(7,14,22,.8)); transition: transform var(--normal) var(--easing), border var(--normal); }
 .servico:hover { transform: translateY(-8px); border-color: rgba(62,195,255,.42); }
@@ -122,7 +120,7 @@ h1 span, h2 span { color: var(--azul); }
 .processo { overflow: visible; background: radial-gradient(circle at 20% 50%, rgba(0,149,222,.08), transparent 30%); }
 .processo__grade { display: grid; grid-template-columns: .82fr 1.18fr; gap: 100px; }
 .processo__introducao { position: sticky; top: 150px; align-self: start; }
-.processo__introducao > p { max-width: 450px; color: var(--texto-suave); margin: 30px 0; }
+.processo__introducao .link-seta { margin-top: 34px; }
 .etapas { position: relative; padding-left: 50px; }
 .etapas__trilha { position: absolute; left: 15px; top: 4px; bottom: 4px; width: 1px; background: #1b2c39; }
 .etapas__trilha span { position: absolute; inset: 0; transform-origin: top; transform: scaleY(var(--progresso, 0)); background: linear-gradient(var(--azul), #1265c8); box-shadow: 0 0 18px rgba(0,184,255,.55); }
@@ -139,8 +137,7 @@ h1 span, h2 span { color: var(--azul); }
 .sobre__painel::before, .sobre__painel::after { content: ""; position: absolute; width: 75%; aspect-ratio: 1; border: 1px solid rgba(0,184,255,.13); border-radius: 50%; }
 .sobre__painel::after { width: 50%; }
 .sobre__logo { position: relative; z-index: 2; width: min(72%, 360px); height: auto; object-fit: contain; filter: drop-shadow(0 18px 40px rgba(0, 156, 225, .18)); }
-.sobre__destaque { margin: 28px 0 20px; color: #dce8ef; font-size: 21px; line-height: 1.45; }
-.sobre__conteudo > p:not(.sobre__destaque) { color: var(--texto-suave); }
+.sobre__conteudo > p { margin-top: 28px; color: var(--texto-suave); }
 .sobre__valores { margin-top: 38px; display: flex; gap: 22px; flex-wrap: wrap; }
 .sobre__valores span { font-size: 11px; color: #b6c4cf; }
 .sobre__valores i { display: inline-block; width: 5px; height: 5px; margin-right: 8px; vertical-align: 1px; border-radius: 50%; background: var(--azul); box-shadow: 0 0 10px var(--azul); }
@@ -151,7 +148,7 @@ h1 span, h2 span { color: var(--azul); }
 .contato__caixa::before { left: -230px; top: -160px; }
 .contato__caixa::after { right: -230px; bottom: -210px; }
 .contato h2 { max-width: 900px; margin: 0 auto 24px; font-size: clamp(2.4rem, 5.3vw, 5.2rem); }
-.contato p { max-width: 620px; margin: 0 auto 34px; color: var(--texto-suave); }
+.contato .botao { margin-top: 10px; }
 
 .rodape { padding: 20px 0 30px; }
 .rodape__topo { min-height: 140px; display: flex; align-items: center; justify-content: space-between; gap: 30px; border-bottom: 1px solid var(--linha); }
